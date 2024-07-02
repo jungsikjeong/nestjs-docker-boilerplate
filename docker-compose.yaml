@@ -1,0 +1,23 @@
+# docker-compose.yaml
+
+version: '3.7'
+
+services:
+  my-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/myFolder/src
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.docker
+
+  my-database:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'mydocker'
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - 3306:3306
